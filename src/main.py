@@ -12,14 +12,23 @@ if __name__ == "__main__":
     header_name = sys.argv[2]
     headers = lines[0].split(',')
     column_number = 0
+
+    header_not_found = True
     for i in range(0, len(headers)):
         if headers[i] == header_name:
+            header_not_found = False
             column_number = i
             break
+
+    if header_not_found:
+        raise Exception("The header that was passed in cannot be found in the CSV headers")
 
     # Read and sort rows
     values = []
     for row in range(1, len(lines)):
+        value = lines[row].strip().split(',')
+        if len(value) != len(headers):
+            raise Exception("The number of values in row " + str(row) + " do not match the number of headers")
         values.append(lines[row].strip().split(','))
     values.sort(key=lambda x:x[column_number], reverse=True)
 
