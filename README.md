@@ -1,8 +1,15 @@
 # kyrrus_takehome
 
 ## To Run from command line without Docker
-python3 main.py ~/Documents/kyrrus_takehome/test.csv City
+```
+python3 src/main.py {FILE_PATH} {COLUMN_NAME}
+```
 
 ## To run with Docker
-docker image build -t python:0.0.1  /Users/stevenmazzari/Documents/kyrrus_takehome
-docker run python:0.0.1
+```
+docker build -t csv_parser .
+
+docker run --name container csv_parser {FILE_PATH} {COLUMN_NAME}
+```
+
+Keep in mind, for the Docker container to use your test file you must have it in this directory when you build the image.
