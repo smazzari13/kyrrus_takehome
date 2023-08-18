@@ -1,10 +1,12 @@
-FROM python:3.8-slim-buster
+#Deriving the latest base image
+FROM python:latest
 
-WORKDIR /src
+ARG filepath=csvs/test.csv
+ARG header=City
 
-COPY src/requirements.txt requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
+ENV HEADER=$header
 
-COPY . .
+COPY src/main.py ./
+COPY ${filepath} /tmp/test.csv
 
-CMD [ "python", "-m" , "flask", "run", "--host=0.0.0.0"]
+CMD ["sh", "-c", "python3 ./main.py /tmp/test.csv $HEADER"]

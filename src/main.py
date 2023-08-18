@@ -33,10 +33,3 @@ if __name__ == "__main__":
             else:
                 row += value[i] + ","
         print(row)
-
-# from flask import Flask
-# app = Flask(kyrrus_takehom WebServer’)
-
-# @app.route(’/’)
-# def get_data():
-#     return [1,2,3]
