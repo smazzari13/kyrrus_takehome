@@ -8,6 +8,15 @@ python3 src/main.py {FILE_PATH} {COLUMN_NAME}
 ```
 
 ### To run with Docker
+
+Make Sure the Dockerfile contains:
+
+```
+FROM python
+WORKDIR /
+COPY . /
+ENTRYPOINT ["python3", "src/main.py"]
+```
 ```
 docker build -t csv_parser .
 
@@ -21,12 +30,28 @@ Additionally, this will not work if values have commas in them with a full sente
 ## Java
 
 ### To Run from command line without Docker
-
+```
 javac --release 17 src/Parser.java
 
 java Parser {FILE_PATH} {COLUMN_NAME}
+```
 
-### To run with Docker
+### To run with Docker (WIP)
 
-javac --release 17 src/Parser.java
+Make sure the Dockerfile contains:
+```
+FROM alpine:latest
+WORKDIR /
+COPY . /
+RUN apk --update add openjdk17-jre
 
+COPY target/gs-maven-0.1.0.jar app.jar
+ENTRYPOINT ["java","-jar","/app.jar"]
+```
+```
+mvn package
+
+docker image build -t docker-java-jar:latest .
+
+docker run docker-java-jar:latest
+```
